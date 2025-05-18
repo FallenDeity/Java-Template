@@ -1,0 +1,51 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: check-yaml
+      - id: check-json
+      - id: check-ast
+      - id: sort-simple-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args:
+          - --markdown-linebreak-ext=md
+      - id: check-toml
+
+  - repo: local
+    hooks:
+      - id: spotless
+        name: spotless
+        language: script
+        pass_filenames: false
+        entry: ./gradlew.bat clean spotlessApply
+
+      - id: checkstyle
+        name: checkstyle
+        language: script
+        pass_filenames: false
+        entry: ./gradlew.bat clean checkstyleMain checkstyleTest
+
+      - id: pmd
+        name: pmd
+        language: script
+        pass_filenames: false
+        entry: ./gradlew.bat clean pmdMain pmdTest
+
+      - id: spotBugs
+        name: spotbugs
+        language: script
+        pass_filenames: false
+        entry: ./gradlew.bat clean spotbugsMain spotbugsTest
+
+      - id: build
+        name: build
+        language: script
+        pass_filenames: false
+        entry: ./gradlew.bat clean build
+
+      - id: test
+        name: test
+        language: script
+        pass_filenames: false
+        entry: ./gradlew.bat clean test
